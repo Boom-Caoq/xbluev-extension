@@ -1,0 +1,74 @@
+{
+  "manifest_version": 3,
+  "default_locale": "zh_CN",
+  "name": "__MSG_name__",
+  "short_name": "__MSG_shortName__",
+  "version": "2.0.0",
+  "description": "__MSG_description__",
+  "homepage_url": "https://xbluev.com/zh/extension",
+  "minimum_chrome_version": "114",
+  "icons": {
+    "16": "icons/16.png",
+    "32": "icons/32.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  },
+  "action": {
+    "default_title": "__MSG_actionTitle__",
+    "default_icon": {
+      "16": "icons/16.png",
+      "32": "icons/32.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "storage",
+    "unlimitedStorage",
+    "sidePanel",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://xbluev.com/*",
+    "https://x.com/*",
+    "https://twitter.com/*",
+    "https://pbs.twimg.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://x.com/*",
+        "https://twitter.com/*"
+      ],
+      "js": [
+        "hook.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "https://x.com/*",
+        "https://twitter.com/*"
+      ],
+      "js": [
+        "content-x.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://xbluev.com/*/extension*"
+      ],
+      "js": [
+        "config.js",
+        "connect.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "side_panel": {
+    "default_path": "panel.html"
+  }
+}
